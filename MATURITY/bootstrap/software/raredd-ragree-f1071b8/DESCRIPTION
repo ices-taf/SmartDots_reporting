@@ -1,0 +1,26 @@
+Package: ragree
+Type: Package
+Title: Rater agreement
+Description: Various measures for quantifying rater agreement.
+Version: 0.0.4
+Authors@R: person("Robert", "Redd", email = "rredd@jimmy.harvard.edu", role = c("aut", "cre"))
+Author: Robert Redd
+Maintainer: Robert Redd <rredd@jimmy.harvard.edu>
+Imports: ggplot2, irr
+Suggests: knitr, mgcv, testthat
+License: GPL-2
+LazyData: true
+URL: https://github.com/raredd/ragree
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Encoding: UTF-8
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: ragree
+RemoteUsername: raredd
+RemoteRef: f1071b8
+RemoteSha: f1071b8bff5489001e7a398b30260b84f9c44246
+GithubRepo: ragree
+GithubUsername: raredd
+GithubRef: f1071b8
+GithubSHA1: f1071b8bff5489001e7a398b30260b84f9c44246

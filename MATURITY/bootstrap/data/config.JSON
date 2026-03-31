@@ -1,0 +1,12 @@
+{
+  "event_id": 1859,
+  "ma_method": "Mode",
+  "onlyApproved": true,
+  "summary_name": "SmartDots_Summary_Event_1859",
+  "summary_title": "SmartDots Summary for event 1859",
+  "report_name": "SmartDots_Report_Event_1859",
+  "report_title": "SmartDots Report for event 1859",
+  "report_tokens": "tokens goes here",
+  "mode_definition": "multistage",
+  "strata": ["strata"]
+}

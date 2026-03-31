@@ -1,10 +1,9 @@
-# SmartDots reporting templates
+# SmartDots Age Report template
 
 ## Description
 
-These templates are used to create reports from SmartDots events, and generate standardized figures and metrics to improve the quality assessment and transparency of biological parameters estimations.
+This report is generated for **age reading exchanges and workshops**, either run internally or internationally coordinated via ICES/WGBIOP.
 
-There are currently **two** reporting templates available: one for the **aging module** and one for the **maturity staging module**.
 
 ## Getting started
 
@@ -18,11 +17,10 @@ taf.bootstrap(taf = TRUE)
 sourceAll()
 ```
 
-To change the configuration and run the project, the script `worksheet.R`
-is provided to set up the config file when changeing eventID for example.
+To change the configuration and run the project, the script `worksheet.R` is provided to set up the config file when changeing eventID for example.
 
 
-## Running the reporting template
+## Running the age report template
 
 Typical report pulls can be done directly from the event page on the SmartDots web-API. The repository and code is available for development and debugging purposes. They can also be used and adapted for institute-specific SmartDots API derivatives that do not transit through ICES systems and databases. 
 
@@ -37,9 +35,5 @@ For help or clarification regarding the reports, contact Patrícia Gonçalves [E
 * Patrícia Gonçalves
 * Côme Denechaud
 * Colin Millar
-    
 
-## License
-
-See the LICENSE.md file for details
 
