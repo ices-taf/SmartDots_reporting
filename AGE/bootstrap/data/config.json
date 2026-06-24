@@ -1,12 +1,14 @@
 {
-  "event_id": 1876,
+  "event_id": 5029,
   "ma_method": "Mode",
   "onlyApproved": true,
-  "summary_name": "SmartDots_Summary_Event_1876",
-  "summary_title": "SmartDots Summary for event 1876",
-  "report_name": "SmartDots_Report_Event_1876",
-  "report_title": "SmartDots Report for event 1876",
+  "summary_name": "SmartDots_Summary_Event_5029",
+  "summary_title": "SmartDots Summary for event 5029",
+  "report_name": "SmartDots_Report_Event_5029",
+  "report_title": "SmartDots Report for event 5029",
   "report_tokens": "tokens goes here",
+  "wgbiop_name": "SmartDots_WGBIOP_mastertable_Event_5029",
+  "wgbiop_title": "SmartDots WGBIOP mastertable Report for event 5029",
   "mode_definition": "multistage",
   "strata": ["strata"]
 }
