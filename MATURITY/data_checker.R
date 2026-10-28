@@ -14,12 +14,12 @@ config <- read_json("bootstrap/initial/data/config.json", simplifyVector = TRUE)
 ad <- read.taf("bootstrap/data/smartdots_db/ad.csv")
 
 ad <- ad %>% 
-  mutate(expertise=case_when(is.na(expertise) ~ 1,
+  dplyr::mutate(expertise=dplyr::case_when(is.na(expertise) ~ 1,
                                         TRUE ~ expertise)) %>% 
-  mutate(TypeAnnotation = case_when(!is.na(reader_number) & (TypeAnnotation=="Delegate") ~ "Reader",
+  dplyr::mutate(TypeAnnotation = dplyr::case_when(!is.na(reader_number) & (TypeAnnotation=="Delegate") ~ "Reader",
          TRUE ~ TypeAnnotation))
 
-write.csv(ad, "bootstrap/data/smartdots_db/ad.csv")
+write.csv(ad, "bootstrap/data/smartdots_db/ad.csv", row.names = FALSE)
 
 #ad <- read.taf("bootstrap/ad.csv")
 
