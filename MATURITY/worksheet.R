@@ -33,11 +33,11 @@ if (FALSE) {
 
 
 # Define some elements needed for the configuration file
-event_number <- 1859
+event_number <- 398
 tokens <- "tokens goes here"
 OnlyApproved <- TRUE
 select_strata <- "prep_method" # c("stock", "prep_method", "ices_area")   # Here the strata can be defined if it has not been defined already in the Smartdots app. By default it is set to "strata", so the strata defined in the data downloaded from ICES database is not changed. However, it can be changed for example to "stock", or "ices_area", or "prep_method", or a combination of them by using the function paste, like paste0(ad$stock, "-", ad$prep_method).
-mode_definition <- "multistage" # it must be set as "multistage" or "standard" the default way is multistage approach, that can be changed to the "standard" mode calculation.
+mode_definition <- "standard" # it must be set as "multistage" or "standard" the default way is multistage approach, that can be changed to the "standard" mode calculation.
 
 # create config file in intial data folder
 config <-
@@ -50,6 +50,8 @@ config <-
     report_name = unbox(paste0("SmartDots_Report_Event_", event_number)),
     report_title = unbox(paste0("SmartDots Report for event ", event_number)),
     report_tokens = unbox(tokens),
+    wgbiop_name = unbox(paste0("SmartDots_WGBIOP_mastertable_Event_", event_number)),
+    wgbiop_title = unbox(paste0("SmartDots_WGBIOP_mastertable for event", event_number)),
     mode_definition = unbox(mode_definition), # the default way is "multistage" approach, that can be changed to the "standard" mode calculation.
     strata = "strata" # strata defined in smartdots reporting web page
   )

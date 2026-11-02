@@ -1,0 +1,191 @@
+---
+title: "`r params$wgbiop_title`"
+output:
+  word_document:
+    fig_caption: true
+    fig_height: 10
+    fig_width: 10
+    reference_docx: "bootstrap/initial/data/wgbiopTemplate.docx"
+    toc: false
+    keep_md: true
+params:
+  wgbiop_title: "WGBIOP Report"
+  strata: NULL
+---
+
+
+```{r introduction, include = FALSE}
+
+# INTRODUCTION ################################################################
+
+# This markdown documents and integrated scripts analyse biological
+# maturity stagings.
+# The output is a .docx template that includes
+# the results of the analysis and should be used as a standard for
+# reporting of maturity staging comparisons.
+```
+
+```{r chunk_setup, include=FALSE}
+# CHUNK SETUPS #################################################################
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE,
+                      message=FALSE, results = 'asis', dpi=400)
+
+```
+
+```{r pander_settings, include = FALSE}
+
+# PANDER OPTIONS ##############################################################
+
+panderOptions('table.split.table', Inf)
+panderOptions('keep.trailing.zeros', TRUE)
+panderOptions('table.alignment.default', "center")
+
+```
+
+
+
+---
+title: `r params$wgbiop_title`
+---
+
+
+
+# General info: Overview of the event (species, stock)
+
+```{r overview_statistics_info}
+species_data <- read.csv("https://raw.githubusercontent.com/openfigis/RefData/gh-pages/Eurostat/CL_SPECIES_1_2.csv", stringsAsFactors = FALSE)
+
+spp <- unique(substring(ad_long_all$stock, 1, 3)) 
+
+nome <- spp
+resultados <- list()
+
+nomes<-nome
+
+# Ciclo for
+for (nome in nomes) {
+  if (nome == "mis") {
+    resultados[[nome]] <- NA
+  } else {
+    resultados[[nome]] <- subset(species_data, ALPHA3CODE == toupper(nome))
+  }
+}
+
+
+if (!is.null(resultados[[1]]) && is.data.frame(resultados[[1]]) && !all(is.na(resultados[[1]]))) {
+  scientificname <- resultados[[1]]$SCIENTIFIC_NAME
+  sp_name_eng <- resultados[[1]]$FULL_NAME_E
+  aphia <- wm_name2id(name = scientificname)
+} else {
+  scientificname <- NA
+  sp_name_eng <- NA
+  aphia <- NA
+}
+
+overview_statistics_info <-c("ICES stock" =paste(unique(ad_long_all$stock), collapse = ", "), 
+"aphiaID"= paste(aphia), "Species scientific name" = paste(scientificname),
+"Species common name" = paste(sp_name_eng), "ICES WG" = "", "Age-based model"="")
+
+# Table caption
+set.caption('**Table 1.1:** Overview of the species from the event: ICES stock, aphiaID, Species scientific name, Species common name, ICES assessment Working Group, Stock category.')
+
+# Output table
+pander(style_table0(overview_statistics_info), missing="")
+
+```
+
+
+
+
+# Overview of the samples and stagers
+
+```{r overview_statistics_stagers}
+
+# Samples OVERVIEW #####################################################
+histN=ad %>% subset(DoesSampleHaveHistologyImage=="Yes") %>% select(FishID) %>% unique() %>% dim()
+
+
+overview_statistics_stagers <- c(
+  "N. Individuals" = length(unique(ad_long$FishID)),
+  "N. Images" = length(unique(ad_long$SampleID)), 
+  "Samples histology (%)" =histN[1],
+  "Preparation method" = paste(unique(ad_long$prep_method), collapse = ", "),
+  "All stagers (n)" = length(unique(ad_long$reader)),
+  "Basic stagers (n)" = length(unique(ad_long$reader)) - length(unique(ad_long_adv$reader)),
+  "Advanced stagers (n)" = length(unique(ad_long_adv$reader)),
+  "Countries" = paste(unique(ad_long$country), collapse = " and ")
+)
+
+
+
+# Table caption
+set.caption('**Table 2.1:** Overview results of samples and stagers: Total number of samples (N. Individuals), total number of images (N. Images), samples with histology in % [Samples histology (%)], preparation method, number of stagers [All stagers (n)], number os basic stagers [Basic stagers (n)], number of advanced stagers [Advanced stagers (n)] and countries participating on the event.')
+
+# Output table
+pander(style_table0(overview_statistics_stagers), missing="")
+
+```
+
+
+
+```{r sample_overview}
+
+# Table caption
+set.caption(
+  paste(
+    "**Table 2.2:** Overview of the number of samples (num) by length category used for the exchange event number ",
+    config$event_id,
+    ". The range of maturity stages (mat_stages), modal maturity stages (modal_mat_stages), sex categories (sex_cat) and modal sex categories (modal_sex_cat) for those individuals within the length range are also presented.",
+    sep = ""
+  )
+)
+
+# Output table
+pander(style_table0(sample_data_overview), style = "simple")
+
+```
+
+
+
+# Overview of the results
+## Summary table: All stagers and Advanced stagers
+
+```{r overview_statistics_all}
+overview_statistics_all <-
+    c( Data = "All", CU_sex  = cu_tab_sex_all[nrow(cu_tab_sex_all), "Total"],
+    CU_mat  = cu_tab_maturity_all[nrow(cu_tab_maturity_all), "Total"],
+    PA_sex  = pa_tab_sex_all[nrow(pa_tab_sex_all), "Total"],
+    PA_mat  = pa_tab_maturity_all[nrow(pa_tab_maturity_all), "Total"],
+    "All stagers (n)" =length(unique(ad_long$reader)))
+
+# Table caption
+set.caption('**Table 3.1:** Overview results: coefficient of unalikeability (CU) for sex (CU_sex) and maturity (CU_maturity); percentage of agreement (PA) for sex (PA_sex) and for maturity (PA_maturity); and the number of all stagers (Data: All) and advanced stagers (Data: Advanced) on the event.')
+
+# Output table
+pander(style_table0(overview_statistics_all), missing="")
+
+```
+
+
+
+```{r overview_statistics_adv}
+overview_statistics_adv <-
+    c(Data = "Advanced", CU_sex  = cu_tab_sex_adv[nrow(cu_tab_sex_adv), "Total"],
+    CU_mat  = cu_tab_maturity_adv[nrow(cu_tab_maturity_adv), "Total"],
+    PA_sex  = pa_tab_sex_adv[nrow(pa_tab_sex_adv), "Total"],
+    PA_mat  = pa_tab_maturity_adv[nrow(pa_tab_maturity_adv), "Total"],
+     "Advanced stagers (n)" = length(unique(ad_long_adv$reader)))
+
+
+# Output table
+pander(style_table0(overview_statistics_adv), missing="")
+
+```
+
+
+
+
+
+
+
