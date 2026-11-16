@@ -27,11 +27,14 @@ dist <- read.taf("bootstrap/data/smartdots_db/dist.csv")
 
 # prepare data -------------------------------
 
-# keep only approved annotations
-if (config$onlyApproved) {
-  ad <- ad[ad$IsApproved == 1, ]
-  dist <- dist[dist$IsApproved == 1, ]
-}
+# keep only approved annotations 
+#if (config$onlyApproved) {
+#  ad <- ad[ad$IsApproved == 1, ]
+#  dist <- dist[dist$IsApproved == 1, ]
+#}
+
+ad <- subset(ad, IsApproved == 1)
+dist <- subset(dist, IsApproved == 1)
 
 # add date columns
 ad <-
