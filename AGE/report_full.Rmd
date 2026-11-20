@@ -242,18 +242,24 @@ Those writing the report put TEXT here describing the results
 
 *Multimodal cases*
 
-<!-- Samples (SampleID) with multimodal cases  using the traditional approach (NModes_trad) -->
-```{r multiple_modes_trad_all}
+<!-- Total number of samples (NSample), number (CountMM) and percentage of multimodal cases (PercMM) text -->
+```{r summary_multiple_modes_all}
+summary_multiple_modes_all <-
+    c(NSample  = length(unique(ad_long_all$SampleID)),
+    PercMM_traditional=unique(ifelse(multimode_cases_tab_traditional_all$NModes_trad=="zero", paste(0,"%"), paste(round((nrow(multimode_cases_tab_traditional_all)/length(unique(ad_long_all$SampleID)))*100, digits=0),"%"))),
+    PercMM_linear_weight=unique(ifelse(multimode_cases_tab_linear_all$NModes_linear=="zero", paste(0,"%"), paste(round((nrow(multimode_cases_tab_linear_all)/length(unique(ad_long_all$SampleID)))*100, digits=0),"%"))),
+    PercMM_negexp_weight=unique(ifelse(multimode_cases_tab_negexp_all$NModes_negexp=="zero", paste(0,"%"), paste(round((nrow(multimode_cases_tab_negexp_all)/length(unique(ad_long_all$SampleID)))*100, digits=0),"%"))),
+    PercMM_multistage=unique(ifelse(multimode_cases_tab_multistage_all$NModes_multistage=="zero", paste(0,"%"), paste(round((nrow(multimode_cases_tab_multistage_all)/length(unique(ad_long_all$SampleID)))*100, digits=0),"%"))))
 
 # Table caption
-set.caption('**Table X:** Fish samples (SampleID) with multiple modes and their corresponding number of modes using the traditional approach (NModes_trad) (where all readers are equally weighted).')
+set.caption('**Table X:** Total number of samples (NSample) and percentage of cases (fish samples) with multiple modes depending on the approach to weight the experience of the reader which will be considered when defining the fish age mode. PercMM_traditional shows the percentage of the total samples for which multiple modes are obtained when all the readers are equally weighted. PercMM_linear_weight shows the percentage of the total samples for which multiple modes are obtained when the weight assigned to the different readers decreases linearly with the experience, while in the PercMM_negexp the weight applied decreases with a negative exponential shape with the experience. The PercMM_multistage shows the percentage of multiple mode cases when a combination of the different methodologies is used, as explained in the material and methods section')
 
 # Output table
-pander(style_table0(multimode_cases_tab_traditional_all), missing = "")
+pander(style_table0(summary_multiple_modes_all), missing="")
 
 ```
-
 \
+
 
 *Summary statistics*
 
@@ -3244,7 +3250,7 @@ pander(style_table0(get(vname("data_overview_tab"))), missing="-", style = "simp
 set.caption('**Table X:** List of cases for which multiple modes where obtained when all readers are considered. The column NModes_trad shows the number of multiple modes for each FishID or sampleID when all readers are given the same expertise weight.')
 
 # Output table
-pander(style_table2(get(vname("multimode_cases_tab_traditional"))),missing="-")
+pander(style_table0(multimode_cases_tab_traditional_all), missing = "")
 
 ```
 
