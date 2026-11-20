@@ -243,7 +243,7 @@ Those writing the report put TEXT here describing the results
 *Multimodal cases*
 
 <!-- Samples (SampleID) with multimodal cases  using the traditional approach (NModes_trad) -->
-```{r summary_multiple_modes_all}
+```{r multiple_modes_trad_all}
 
 # Table caption
 set.caption('**Table X:** Fish samples (SampleID) with multiple modes and their corresponding number of modes using the traditional approach (NModes_trad) (where all readers are equally weighted).')
